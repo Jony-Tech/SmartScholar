@@ -37,50 +37,48 @@ import  {UI, Student} from "./prototypes.js";
             console.log('DB created');
 
         }
+    }
 
-        
-        UI.prototype.printStudent = function(){
-            const openConexion = window.indexedDB.open('students', 1);
+    UI.prototype.printStudent = function(){
+        const openConexion = window.indexedDB.open('students', 1);
 
-            openConexion.onerror = () => console.log('something went wrong');
+        openConexion.onerror = () => console.log('something went wrong');
 
-            openConexion.onsuccess = function(){
-                DB = openConexion.result;
+        openConexion.onsuccess = function(){
+            DB = openConexion.result;
 
-                const objectStore = DB.transaction('students').objectStore('students');
+            const objectStore = DB.transaction('students').objectStore('students');
 
-                objectStore.openCursor().onsuccess = function(e){
-                    const cursor = e.target.result;
+            objectStore.openCursor().onsuccess = function(e){
+                const cursor = e.target.result;
 
-                    if(cursor){
-                        const {name, lastName, age, id} = cursor.value;
+                if(cursor){
+                    const {name, lastName, age, id} = cursor.value;
 
-                        studentsList.innerHTML += `
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${name} </p>
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                                    <p class="text-gray-700">${lastName}</p>
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-700">    
-                                    <p class="text-gray-600">${age}</p>
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                                    <a href="editStudent.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
-                                    <button data-student="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
-                                </td>
-                            </tr>`;
+                    studentsList.innerHTML += `
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${name} </p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
+                                <p class="text-gray-700">${lastName}</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-700">    
+                                <p class="text-gray-600">${age}</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                                <a href="editStudent.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
+                                <button data-student="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
+                            </td>
+                        </tr>`;
 
-                            cursor.continue();
+                    cursor.continue();
                             
-                    }
-                    
-                    
                 }
+                    
+                    
             }
         }
-
     }
 
     setTimeout(() => {

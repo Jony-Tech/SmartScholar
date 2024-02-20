@@ -47,7 +47,7 @@ import { connectDB, DB } from "./functions.js";
         transaction.onerror = () => console.log('something went wrong');
 
         transaction.oncomplete = function(){
-            ui.printMessage('Student added', 'success');
+            ui.printMessage('Student added successfully');
             setTimeout(() => {
                 window.location.href = 'students.html';
             }, 2000);

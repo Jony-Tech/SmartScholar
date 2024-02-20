@@ -1,4 +1,4 @@
-export function Student(name, lastName, age, id, subjects, group, grades){
+export function Student(name, lastName, age, id){
     this.name = name;
     this.lastName = lastName;
     this.age = age;
@@ -10,6 +10,13 @@ export function Student(name, lastName, age, id, subjects, group, grades){
 
 export function UI(){};
 
+export function GROUP(groupName, note, id){
+    this.groupName = groupName;
+    this.note = note;
+    this.id = id;
+    this.students = [];
+}
+
 UI.prototype.printMessage = function(message, type){
     if(type === 'error'){
         Swal.fire({
@@ -17,7 +24,7 @@ UI.prototype.printMessage = function(message, type){
         title: "Oops...",
         text: `${message}`,
         });
-    }else if(type === 'success'){
+    }else{
         Swal.fire({
         icon: "success",
         title: "",
