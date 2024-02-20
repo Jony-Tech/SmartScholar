@@ -1,8 +1,9 @@
-import { UI } from "../prototypes.js";
+import { UI, GROUP } from "../prototypes.js";
 
 (function(){
     let DB;
     const ui = new UI();
+    const group = new GROUP();
     const groupsList = document.querySelector('#groups-list')
     document.addEventListener('DOMContentLoaded', () => {
         createDB();
@@ -59,7 +60,7 @@ import { UI } from "../prototypes.js";
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                                 <a href="editGroup.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
-                                <button data-student="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
+                                <button  data-group="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
                             </td>
                         </tr>`;
 
@@ -67,6 +68,44 @@ import { UI } from "../prototypes.js";
                 }
             }
         }
+    }
 
+    setTimeout(() => {
+        const deleteBtns = document.querySelectorAll('.delete');
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', group.deleteGroup)
+        });
+    }, 500);
+
+    GROUP.prototype.deleteGroup = function(e){
+        const idDelete = Number(e.target.dataset.group);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const transaction = DB.transaction(['groups'], 'readwrite');
+                    const objectStore = transaction.objectStore('groups');
+
+
+                    objectStore.delete(idDelete);
+                    transaction.oncomplete = function(){
+                        e.target.parentElement.parentElement.remove();
+                    }
+                    transaction.onerror = ui.printMessage('Something went wrong', 'error')
+
+                    Swal.fire({
+                    title: "Deleted!",
+                    text: "This group has been deleted.",
+                    icon: "success"
+                    });
+                }
+        });
     }
 })();

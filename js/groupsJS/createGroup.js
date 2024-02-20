@@ -25,7 +25,7 @@ import { UI, GROUP } from "../prototypes.js";
         const newGroup = new GROUP(groupName, note, id);
 
         const group = {
-            groupName: newGroup.nameGroup,
+            groupName: newGroup.groupName,
             note: newGroup.note,
             id: newGroup.id
         }

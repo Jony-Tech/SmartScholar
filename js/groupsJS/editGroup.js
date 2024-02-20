@@ -48,9 +48,9 @@ import { GROUP, UI } from "../prototypes.js";
 
         transaction.oncomplete = function(){
             ui.printMessage('The student has been updated correctly', 'success');
-            // setTimeout(() => {
-            //     window.location.href = 'students.html';
-            // }, 2000);
+            setTimeout(() => {
+                window.location.href = 'groups.html';
+            }, 2000);
         }
 
         transaction.onerror = () => ui.printMessage('Something went wrong', 'error')

@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="flex min-h-screen ">
+    <div class="bg-slate-200 min-h-svh min-w-svh sm:flex">
       <aside class="bg-gray-900 p-5">
         <h1 class="text-yellow-400 text-center text-3xl ">
           SmartScholar
         </h1>
 
-        <nav class="buttons mt-5 flex flex-col justify-center">
-          <a href="index.html" class="text-center text-white rounded p-4 hover:bg-gray-700 ">
+        <nav class="buttons mt-5 flex sm:flex-col justify-center">
+          <a href="index.html" class="text-center text-white rounded p-4 hover:bg-gray-700">
             <div class="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@
             Register Student
           </a>
           </a>
-          <a href="groups.html" class="text-center text-white rounded p-4 hover:bg-gray-700 bg-gray-700">
+          <a class="text-center text-white rounded p-4 hover:bg-gray-700">
             <div class="flex justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
@@ -72,45 +72,43 @@
         </nav>
       </aside>
 
-      <main class="w-screen min-h-screen bg-slate-200">
-
-        <h2 class="text-center text-3xl py-5">GROUPS</h2>
-
-        <div class="flex justify-center">
-          <div class="w-10/12 flex justify-between mb-4">
-            <a href="createGroup.html" class="bg-green-600 shadow-md rounded p-2 text-white font-bold">Create new group</a>
-            <a href="assingStudents.html" class="bg-blue-600 shadow-md rounded p-2 text-white font-bold">Assing students</a>
-          </div>
-        </div>
+      <main class="w-full">
         
-        <div class="flex justify-center overflow-y-auto">
-          <table class="bg-white p-4 rounded-md w-10/12 h-3/5 shadow-md table-auto">
+        <h2 class="text-center text-3xl py-5">ASSING STUDENTS</h2>
+        
+        <div class="flex justify-center max-h-4/5 overflow-y-auto">
+          <table class="bg-white p-4 rounded-md w-10/12  shadow-md table-auto">
             <thead class="bg-gray-100">
                   <tr>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      GROUP
+                      NAME
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      NOTE
+                      LAST NAME
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      ACCIONS
+                      CURRENT GROUP
+                    </th>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
+                    >
+                      ASSING GROUP
                     </th>
                   </tr>
                 </thead>
-                <tbody id="groups-list" class="bg-white"></tbody>
+                <tbody id="students-list" class="bg-white"></tbody>
           </table>
         </div>
       </main>
     </div>
 
-    <script type="module" src="js/groupsJS/groups.js"></script>
+    <script type="module" src="js/groupsJS/assingStudents.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
