@@ -25,9 +25,9 @@ import { UI, GROUP } from "../prototypes.js";
 
             const objectStore = db.createObjectStore('groups', {keyPath: 'id', autoIncrement: true});
 
-            objectStore.createIndex('groupName', 'groupName', { unique: true});
+            objectStore.createIndex('groupName', 'groupName', { unique: false});
             objectStore.createIndex('note', 'note', { unique: false});
-            objectStore.createIndex('students', 'students', { unique: true});
+            objectStore.createIndex('students', 'students', { unique: false});
             objectStore.createIndex('id', 'id', { unique: true});
 
             console.log('DB created');

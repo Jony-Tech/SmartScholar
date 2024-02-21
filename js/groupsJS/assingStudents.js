@@ -8,7 +8,6 @@ import  {UI} from "../prototypes.js";
     document.addEventListener('DOMContentLoaded', () => {
         connectDB();
         connectGroupsDB();
-        // getGroups();
 
         if(window.indexedDB.open('students', 1)){
             ui.printAssingStudent();
@@ -29,7 +28,7 @@ import  {UI} from "../prototypes.js";
 
                 if(cursor){
                     const {name, lastName, group, id} = cursor.value;
-                    let currentGroup
+                    let currentGroup = group;
 
                     if(!group){
                         currentGroup = "no group"
@@ -46,49 +45,17 @@ import  {UI} from "../prototypes.js";
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-700">    
                                 <p class="text-gray-600">${currentGroup}</p>
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                                <select class="select-group" name="groups">
-                                    
-                                </select>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 flex justify-center">
+                                <a href="chooseGroup.html?id=${id}" class="bg-blue-600 shadow-md rounded p-2 text-white font-bold">Assing</a>
                             </td>
                         </tr>`;
 
                     cursor.continue();
                             
                 }
-                    
-                    
+                     
             }
-            setTimeout(() => {
-                getGroups();
-            }, 100);
-        }
-    }
-
-    function getGroups(){
-        const openConexion = window.indexedDB.open('groups', 1);
-        let selectGroup = document.querySelectorAll('.select-group');
-
-        
-
-        openConexion.onerror = () => console.log('Something went wrong');
-
-        openConexion.onsuccess = function(){
-            const objectStore = groupDB.transaction('groups').objectStore('groups');
-
-            objectStore.openCursor().onsuccess = function(e){
-                const cursor = e.target.result;
-                if(cursor){
-                    const {id, groupName} = cursor.value;
-                    selectGroup.forEach(group => {
-                        group.innerHTML += `
-                        <option data-group="${id}" value="${groupName}">${groupName}</option>`
-                    })
-
-
-                    cursor.continue();
-                }
-            }
+            
         }
     }
 
