@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartScholar</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="bg-slate-200 min-h-svh min-w-svh sm:flex">
+      <aside class="bg-gray-900 p-5">
+        <h1 class="text-yellow-400 text-center text-3xl ">
+          SmartScholar
+        </h1>
+
+        <nav class="buttons mt-5 flex sm:flex-col justify-center">
+          <a href="index.html" class="text-center text-white rounded p-4 hover:bg-gray-700">
+            <div class="flex justify-center">
+              <img class="w-6 h-6" src="img/home.svg" alt="">
+            </div>
+            Home
+          </a>
+          <a href="students.html" class="text-center text-white rounded p-4 hover:bg-gray-700">
+            <div class="flex justify-center">
+              <img class="w-6 h-6" src="img/students.svg" alt="">
+
+            </div>
+            Students
+          </a>
+          <a href="register.html" class="text-center text-white rounded p-4 hover:bg-gray-700">
+            <div class="flex justify-center">
+              <img class="w-6 h-6" src="img/register.svg" alt="">
+            </div>
+            Register Student
+          </a>
+          </a>
+          <a class="text-center text-white rounded p-4 hover:bg-gray-700">
+            <div class="flex justify-center">
+              <img class="w-6 h-6" src="img/groups.svg" alt="">
+
+            </div>
+            Create Groups
+          </a>
+        </nav>
+      </aside>
+
+      <main class="w-full">
+        
+        <h2 class="text-center text-3xl py-5">GROUP</h2>
+        
+        <div class="flex justify-center max-h-4/5 overflow-y-auto">
+          <table class="bg-white p-4 rounded-md w-10/12  shadow-md table-auto">
+            <thead class="bg-gray-100">
+                  <tr>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
+                    >
+                      STUDENT ID
+                    </th>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
+                    >
+                      NAME
+                    </th>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
+                    >
+                      LAST NAME
+                    </th>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
+                    >
+                      ACCIONS
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="students-list" class="bg-white"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="js/groupsJS/seeStudents.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>

@@ -59,8 +59,10 @@ import { UI, GROUP } from "../prototypes.js";
                                 <p class="text-gray-700">${note}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                                <a href="editGroup.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
+                                <a href="seeStudents.html?id=${id}" class="text-green-600 mr-5">See</a>
+                                <a href="editGroup.html?id=${id}" class="text-blue-600 hover:text-green-500 mr-5">Edit</a>
                                 <button  data-group="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
+                                
                             </td>
                         </tr>`;
 

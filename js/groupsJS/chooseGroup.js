@@ -4,17 +4,24 @@ import { Student, UI,GROUP } from "../prototypes.js";
 (function(){
     const groupList = document.querySelector('#group-list');
     const btn = document.querySelector('#btn');
+    const studentId = document.querySelector('#id');
+    const nameSpan = document.querySelector('#name');
+    const lastNameSpan = document.querySelector('#lastName');
 
     const urlParams = new URLSearchParams(window.location.search);
-    const idStudents = urlParams.get('id');
-
+    const idStudents = Number(urlParams.get('id'));
     const ui = new UI();
     btn.addEventListener('click', selectGroup)
     document.addEventListener('DOMContentLoaded', () => {
         connectGroupsDB();
         connectDB();
-
         getGroups();
+
+        if(idStudents){
+            setTimeout(() => {
+                getStudent(idStudents);
+            }, 100);
+        }
     })
 
 
@@ -46,13 +53,13 @@ import { Student, UI,GROUP } from "../prototypes.js";
 
         radioButtons.forEach( radioButton => {
             if(radioButton.checked){
-                saveChanges(idStudents , radioButton);
+                saveChanges( radioButton);
             }
         })
     }
 
-    function saveChanges(idStudents, groupData){
-        const idStudent = Number(idStudents);
+    function saveChanges(groupData){
+        
         const openConexion = window.indexedDB.open('students', 1);
         openConexion.onerror = () => console.log('Something went wrong');
 
@@ -63,20 +70,20 @@ import { Student, UI,GROUP } from "../prototypes.js";
             objectStore.openCursor().onsuccess = function(e){
                 const cursor = e.target.result;
                 if(cursor){
-                    if(cursor.value.id === idStudent ){
-                        const student = new Student(cursor.value.name, cursor.value.lastName, cursor.value.age, idStudent);
+                    if(cursor.value.id === idStudents ){
+                        const student = new Student(cursor.value.name, cursor.value.lastName, cursor.value.age, idStudents);
                         student.group = groupData.value;
 
                         const updatedStudent = {
                             name: student.name,
                             lastName: student.lastName,
                             age: student.age,
-                            id: idStudent,
+                            id: idStudents,
                             group: groupData.value
                         }
 
                         objectStore.put(updatedStudent);
-                        saveStudents(cursor.value, groupData)
+                        saveStudents(cursor.value, groupData);
                     }
                     
                     cursor.continue();
@@ -134,5 +141,29 @@ import { Student, UI,GROUP } from "../prototypes.js";
                 cursor.continue();
             }
         }
+    }
+
+    function getStudent(){
+            const transaction = DB.transaction(['students'], 'readwrite');
+            const objectStore = transaction.objectStore('students');
+
+            objectStore.openCursor().onsuccess = function(e){
+                const cursor = e.target.result;
+                if(cursor){
+                    if(cursor.value.id === idStudents ){
+                        
+                        ui.printStudentList(cursor.value);
+                    }
+                    
+                    cursor.continue();
+                }
+            }
+    }
+
+    UI.prototype.printStudentList = function(student){
+        const {id, name, lastName} = student;
+        studentId.textContent = id;
+        nameSpan.textContent = name;
+        lastNameSpan.textContent = lastName;
     }
 })();

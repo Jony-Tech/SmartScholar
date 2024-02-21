@@ -12,6 +12,7 @@ import { GROUP, UI } from "../prototypes.js";
 
     const urlParams = new URLSearchParams(window.location.search);
     const idGroup = urlParams.get('id');
+    let arrayStudents;
 
     document.addEventListener('DOMContentLoaded', () => {
         connectGroupsDB();
@@ -37,7 +38,8 @@ import { GROUP, UI } from "../prototypes.js";
         const group = {
             groupName: editGroup.groupName,
             note: editGroup.note,
-            id: Number(editGroup.id)
+            id: Number(editGroup.id),
+            students: arrayStudents
         }
 
         const transaction = groupDB.transaction(['groups'], 'readwrite');
@@ -74,8 +76,9 @@ import { GROUP, UI } from "../prototypes.js";
     }
 
     UI.prototype.fillOutFormGroup = function(groupData){
-        const {groupName, note} = groupData;
-
+        const {groupName, note, students} = groupData;
+        arrayStudents = students;
+        
         inputGroupName.value = groupName;
         inputNote.value = note
     }
