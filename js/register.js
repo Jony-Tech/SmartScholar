@@ -31,7 +31,9 @@ import { connectDB, DB } from "./functions.js";
             name: newStudent.name,
             lastName: newStudent.lastName,
             age: newStudent.age,
-            id: newStudent.id
+            id: newStudent.id,
+            subjects: [],
+            average: 0
         }
         createNewStudent(student);
     }

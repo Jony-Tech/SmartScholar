@@ -31,7 +31,7 @@ import  {UI, Student} from "./prototypes.js";
             objectStore.createIndex('age', 'age', { unique: false });
             objectStore.createIndex('subjects', 'subjects', { unique: false });
             objectStore.createIndex('group', 'group', { unique: false });
-            objectStore.createIndex('grades', 'grades', { unique: false });
+            objectStore.createIndex('average', 'average', { unique: false });
             objectStore.createIndex('id', 'id', { unique: true });
             
             console.log('DB created');
@@ -57,6 +57,9 @@ import  {UI, Student} from "./prototypes.js";
 
                     studentsList.innerHTML += `
                         <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
+                                <p class="text-gray-700">${id}</p>
+                            </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${name} </p>
                             </td>

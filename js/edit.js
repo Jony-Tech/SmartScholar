@@ -9,9 +9,12 @@ import { Student, UI} from "./prototypes.js";
 
     const student = new Student();
     const ui = new UI();
-
+    
     const urlParams = new URLSearchParams(window.location.search);
     const idStudents = urlParams.get('id');
+    let subjectStudent;
+    let averageStudent;
+    let groupStudent;
     document.addEventListener('DOMContentLoaded', () => {
         connectDB();
 
@@ -20,6 +23,7 @@ import { Student, UI} from "./prototypes.js";
         if(idStudents){
             setTimeout(() => {
                 getStudent(idStudents);
+                
             }, 100);
         }
     });
@@ -39,7 +43,10 @@ import { Student, UI} from "./prototypes.js";
             name: editStudent.name,
             lastName: editStudent.lastName,
             age: editStudent.age,
-            id: Number(editStudent.id)
+            id: Number(editStudent.id),
+            average: averageStudent,
+            subjects: subjectStudent,
+            group: groupStudent
         }
         
         // console.log(updatedStudent, editStudent);
@@ -76,8 +83,10 @@ import { Student, UI} from "./prototypes.js";
         }
     }
     UI.prototype.fillOutForm = function(studentData){
-        const {name, lastName, age} = studentData;
-
+        const {name, lastName, age, subjects, average, group} = studentData;
+        subjectStudent = subjects;
+        averageStudent = average;
+        groupStudent = group;
         inputName.value = name;
         inputLastName.value = lastName;
         inputAge.value = age;

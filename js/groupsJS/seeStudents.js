@@ -2,6 +2,7 @@ import { connectDB, connectGroupsDB, groupDB, DB } from "../functions.js";
 import { Student, UI } from "../prototypes.js";
 (function(){
     const studentsList = document.querySelector('#students-list');
+    const groupTitle = document.querySelector('#groupTitle');
     const urlParams = new URLSearchParams(window.location.search);
     const idGroup = Number(urlParams.get('id'));
     const student = new Student();
@@ -27,6 +28,7 @@ import { Student, UI } from "../prototypes.js";
             if(cursor){
                 if(cursor.value.id === idGroup){
                     groupData = cursor.value;
+                    groupTitle.textContent = groupData.groupName;
                     const arrayStudents = cursor.value.students;
                     arrayStudents.forEach(student => {
                         getStudent(student);

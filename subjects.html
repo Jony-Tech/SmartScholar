@@ -20,7 +20,7 @@
             </div>
             <span class="hidden sm:block">Home</span>
           </a>
-          <a href="students.html" class="text-center text-white rounded p-4 hover:bg-gray-700 bg-gray-700">
+          <a href="students.html" class="text-center text-white rounded p-4 hover:bg-gray-700 ">
             <div class="flex justify-center">
               <img class="w-6 h-6" src="img/students.svg" alt="">
 
@@ -41,51 +41,84 @@
             </div>
             <span class="hidden sm:block">Groups</span>
           </a>
+          <a href="groups.html" class="text-center text-white rounded p-4 hover:bg-gray-700 bg-gray-700">
+            <div class="flex justify-center">
+              <img class="w-6 h-6" src="img/subjects.svg" alt="">
+
+            </div>
+            <span class="hidden sm:block">Subjects</span>
+          </a>
         </nav>
       </aside>
 
       <main class="w-full min-h-full bg-slate-200">
 
-        <h2 class="text-center text-3xl py-5">STUDENTS</h2>
+        <h2 class="text-center text-3xl py-5">ENROLL SUBJECTS</h2>
         
-        <div class="flex sm:justify-center overflow-y-auto">
-          <table class="bg-white p-4 rounded-md w-10/12  shadow-md table-auto">
-            <thead class="bg-gray-100">
+        <div class="flex justify-center max-h-4/5 overflow-y-auto">
+          <form id="form" class="bg-white p-4 rounded-md w-10/12 md:w-8/12 lg:w-5/12 shadow-md	">
+            <h3 class="text-center pb-3">STUDENT INFORMATION</h3> 
+            <hr>
+            <div class="pb-3 pt-3 flex">
+              <p class=" font-bold"">Student ID:</p>
+              <span id="id" class="px-3">id</span>
+            </div>
+            <div class="pb-3 flex">
+              <p class=" font-bold">Name:</p>
+              <span id="name" class="px-3">name</span>
+            </div>
+            <div class="pb-3 flex">
+              <p class="block pb-2 font-bold">Last Name:</p>
+              <span id="lastName" class="px-3">last name</span>
+            </div>
+            <div class="">
+              <div class="flex justify-end">
+                <button id="add" class="p-2 font-bold text-lg rounded bg-green-600 text-white">Add Subject</button>
+                
+              </div>
+              <div>
+                <h3 class="text-center py-3">CURRENT SUBJECTS</h3>
+                <table class="bg-white p-4 mb-4 rounded-md w-full table-auto">
+                  <thead class="bg-gray-100">
                   <tr>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      STUDENT ID
+                      SUBJECT
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      NAME
+                      GRADE
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
                     >
-                      LAST NAME
-                    </th>
-                    <th
-                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
-                    >
-                      AGE
-                    </th>
-                    <th
-                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600  tracking-wider"
-                    >
-                      ACCIONS
+                      DELETE
                     </th>
                   </tr>
                 </thead>
-                <tbody id="students-list" class="bg-white"></tbody>
-          </table>
+                <tbody id="subjects-list" class="bg-white"></tbody>
+                </table>
+              </div>
+              
+              <div class="flex justify-between">
+                <div class="pb-3 flex">
+                  <p class=" font-bold">Average:</p>
+                  <span id="averageSpan" class="px-3"></span>
+                </div>
+                <button id="get-average" class="p-2  font-bold text-lg rounded bg-blue-600 text-white">Get average</button>
+              </div>
+              
+            </div>
+              
+            </div>
+          </form>
         </div>
       </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/subjectForm.js"></script>
   </body>
 </html>
