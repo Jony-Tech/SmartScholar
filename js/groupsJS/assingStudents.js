@@ -1,22 +1,29 @@
-import { connectDB, DB, connectGroupsDB, groupDB } from "../functions.js";
+import { connectDB, DB, connectGroupsDB} from "../functions.js";
 import  {UI} from "../prototypes.js";
+import { searchStudent } from "../searcher.js";
 
 (function(){
     const ui = new UI();
     const studentsList = document.querySelector('#students-list');
-    
+    const search = document.querySelector('#search');
+    let studentData =[];
+    search.addEventListener('submit', searchInfo)
     document.addEventListener('DOMContentLoaded', () => {
         connectDB();
         connectGroupsDB();
 
         if(window.indexedDB.open('students', 1)){
-            ui.printAssingStudent();
+            getStudents();
         }
     });
 
-    UI.prototype.printAssingStudent = function(){
+    function searchInfo(e){
+        e.preventDefault();
+        searchStudent(studentData, studentsList)
+    }
+    
+    function getStudents(){
         const openConexion = window.indexedDB.open('students', 1);
-
         openConexion.onerror = () => console.log('something went wrong');
 
         openConexion.onsuccess = function(){
@@ -27,7 +34,19 @@ import  {UI} from "../prototypes.js";
                 const cursor = e.target.result;
 
                 if(cursor){
-                    const {name, lastName, group, id} = cursor.value;
+                   ui.printStudents(cursor.value)
+
+                    cursor.continue();
+                            
+                }
+                     
+            }
+            
+        }
+    }
+    UI.prototype.printStudents = function(studentInfo){
+        const {name, lastName, group, id} = studentInfo;
+                    studentData.push(studentInfo);
                     let currentGroup = group;
 
                     if(!group){
@@ -49,14 +68,7 @@ import  {UI} from "../prototypes.js";
                                 <a href="chooseGroup.html?id=${id}" class="bg-blue-600 shadow-md rounded p-2 text-white font-bold">Assing</a>
                             </td>
                         </tr>`;
-
-                    cursor.continue();
-                            
-                }
-                     
-            }
-            
-        }
+                        
     }
 
 })();

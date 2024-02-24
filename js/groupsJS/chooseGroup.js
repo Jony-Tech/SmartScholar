@@ -79,7 +79,9 @@ import { Student, UI,GROUP } from "../prototypes.js";
                             lastName: student.lastName,
                             age: student.age,
                             id: idStudents,
-                            group: groupData.value
+                            group: groupData.value,
+                            average: cursor.value.average,
+                            subjects: cursor.value.subjects,
                         }
 
                         objectStore.put(updatedStudent);

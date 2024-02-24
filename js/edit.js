@@ -49,7 +49,6 @@ import { Student, UI} from "./prototypes.js";
             group: groupStudent
         }
         
-        // console.log(updatedStudent, editStudent);
         const transaction = DB.transaction(['students'], 'readwrite');
 
         const objectStore = transaction.objectStore('students');
@@ -59,7 +58,7 @@ import { Student, UI} from "./prototypes.js";
         transaction.oncomplete = function(){
             ui.printMessage('The student has been updated correctly', 'success');
             setTimeout(() => {
-                window.location.href = 'students.html';
+                window.location.href = 'index.html';
             }, 2000);
         }
 

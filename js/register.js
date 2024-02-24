@@ -51,7 +51,7 @@ import { connectDB, DB } from "./functions.js";
         transaction.oncomplete = function(){
             ui.printMessage('Student added successfully');
             setTimeout(() => {
-                window.location.href = 'students.html';
+                window.location.href = 'index.html';
             }, 2000);
         }
     }

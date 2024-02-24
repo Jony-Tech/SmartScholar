@@ -1,28 +1,42 @@
 import  {UI} from "./prototypes.js";
 import { connectDB, DB } from "./functions.js";
+import { searchStudent } from "./searcher.js";
 
 (function(){
     const ui = new UI();
     const studentsList = document.querySelector('#students-list');
-    
+    const search = document.querySelector('#search');
+    search.addEventListener('submit', searchInfo);
+    let studentData = [];
     document.addEventListener('DOMContentLoaded', () => {
         connectDB();
         setTimeout(() => {
             if(window.indexedDB.open('students', 1)){
-                ui.printStudent();
+                getStudent();
             }
         }, 100);
         
     });
 
-    UI.prototype.printStudent = function(){
-            const objectStore = DB.transaction('students').objectStore('students');
+    function searchInfo(e){
+        e.preventDefault();
+        searchStudent(studentData, studentsList)
+    }
+    function getStudent(){
+        const objectStore = DB.transaction('students').objectStore('students');
 
             objectStore.openCursor().onsuccess = function(e){
                 const cursor = e.target.result;
 
                 if(cursor){
-                    const {name, lastName, id} = cursor.value;
+                    ui.printStudents(cursor.value)
+                    cursor.continue();
+                }
+            }
+    }
+    UI.prototype.printStudents = function(studentInfo){
+            const {name, lastName, id} = studentInfo;
+                    studentData.push(studentInfo);
 
                     studentsList.innerHTML += `
                         <tr>
@@ -40,12 +54,6 @@ import { connectDB, DB } from "./functions.js";
                             </td>
                         </tr>`;
 
-                    cursor.continue();
-                            
-                }
-                    
-                    
-            }
     }
 
 })();

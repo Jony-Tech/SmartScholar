@@ -1,21 +1,33 @@
 import { connectDB, connectGroupsDB, groupDB, DB } from "../functions.js";
 import { Student, UI } from "../prototypes.js";
+import { searchStudent } from "../searcher.js";
 (function(){
     const studentsList = document.querySelector('#students-list');
     const groupTitle = document.querySelector('#groupTitle');
+    const search = document.querySelector('#search');
+    const groupAverage = document.querySelector('#group-average')
+    
     const urlParams = new URLSearchParams(window.location.search);
     const idGroup = Number(urlParams.get('id'));
     const student = new Student();
     const ui = new UI();
     let groupData;
+    let studentData =[];
+    search.addEventListener('submit', searchInfo)
     document.addEventListener('DOMContentLoaded', () =>{
         connectGroupsDB();
         connectDB();
 
         setTimeout(() => {
             getGroup();
-        }, 100);
+            
+        }, 200);
     })
+
+    function searchInfo(e){
+        e.preventDefault();
+        searchStudent(studentData, studentsList)
+    }
 
     function getGroup(){
         const transaction = groupDB.transaction(['groups'], 'readwrite');
@@ -48,7 +60,17 @@ import { Student, UI } from "../prototypes.js";
 
             if(cursor){
                 if(cursor.value.id === student){
-                    const {name, lastName, id} = cursor.value;
+                    ui.printStudents(cursor.value)
+                }
+                cursor.continue();
+            }
+        }
+    }
+    UI.prototype.printStudents = function(studentInfo){
+        const {name, lastName, id} = studentInfo;
+                    
+                    studentData.push(studentInfo);
+                    
                     studentsList.innerHTML += `
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -65,13 +87,11 @@ import { Student, UI } from "../prototypes.js";
                                 <button data-student="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
                             </td>
                         </tr>`;
-                }
-                cursor.continue();
-            }
-        }
+                        
     }
 
     setTimeout(() => {
+        getAverage();
         const deleteBtns = document.querySelectorAll('.delete');
         deleteBtns.forEach(btn => {
             btn.addEventListener('click', student.deleteStudent)
@@ -114,5 +134,16 @@ import { Student, UI } from "../prototypes.js";
                     });
                 }
         });
+    }
+    
+    function getAverage() {
+        let average = 0;
+        let counter = 0
+        studentData.forEach(element => {
+            average += element.average;
+            counter++;
+        });
+        const calculate = average / counter;
+        groupAverage.textContent = Number(calculate.toFixed(2));
     }
 })();

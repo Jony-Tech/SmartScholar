@@ -1,18 +1,26 @@
 import  {UI, Student} from "./prototypes.js";
+import { searchStudent } from "./searcher.js";
 
 (function(){
     let DB;
     const ui = new UI();
     const student = new Student();
     const studentsList = document.querySelector('#students-list');
-    
+    const search = document.querySelector('#search');
+    let studentData = [];
+    search.addEventListener('submit', searchInfo)
     document.addEventListener('DOMContentLoaded', () => {
         createDB();
 
         if(window.indexedDB.open('students', 1)){
-            ui.printStudent();
+            getStudent();
         }
     });
+
+    function searchInfo(e){
+        e.preventDefault();
+        searchStudent(studentData, studentsList)
+    }
 
     function createDB(){
         const createDB = window.indexedDB.open('students', 1);
@@ -39,7 +47,7 @@ import  {UI, Student} from "./prototypes.js";
         }
     }
 
-    UI.prototype.printStudent = function(){
+    function getStudent(){
         const openConexion = window.indexedDB.open('students', 1);
 
         openConexion.onerror = () => console.log('something went wrong');
@@ -53,7 +61,19 @@ import  {UI, Student} from "./prototypes.js";
                 const cursor = e.target.result;
 
                 if(cursor){
-                    const {name, lastName, age, id} = cursor.value;
+                    ui.printStudents(cursor.value)
+                    studentData.push(cursor.value);
+
+                    cursor.continue();
+                            
+                }
+                    
+                    
+            }
+        }
+    }
+    UI.prototype.printStudents = function(studentInfo){
+        const {name, lastName, age, id} = studentInfo;
 
                     studentsList.innerHTML += `
                         <tr>
@@ -74,14 +94,6 @@ import  {UI, Student} from "./prototypes.js";
                                 <button data-student="${id}" class="text-red-600 hover:text-red-900 delete">Delete</button>
                             </td>
                         </tr>`;
-
-                    cursor.continue();
-                            
-                }
-                    
-                    
-            }
-        }
     }
 
     setTimeout(() => {
