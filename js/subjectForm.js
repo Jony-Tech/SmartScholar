@@ -58,7 +58,7 @@ import { UI, Student} from "./prototypes.js";
         });
         let calculate = grades / counter;
         studentData.average = Number(calculate.toFixed(2));
-        student.updateStudent();
+        student.updateStudent(true);
     }
 
     UI.prototype.printStudent = function(student){
@@ -78,7 +78,7 @@ import { UI, Student} from "./prototypes.js";
                                 <p class="text-gray-700">${sub}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <input class="border w-full appearance-none rounded p-1 focus:outline-none focus:border-green-600 leading-tight grade" type="number">
+                                <input placeholder="grade" class="border w-full appearance-none rounded p-1 focus:outline-none focus:border-green-600 leading-tight grade" type="number">
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                                 <button data-student="${sub}" class="text-red-600 hover:text-red-900 delete">Delete</button>
@@ -98,13 +98,13 @@ import { UI, Student} from "./prototypes.js";
         let newSubject = subject.toLowerCase();
         if (!subjectArray.includes(newSubject)) {
             subjectArray.push(newSubject);
-            student.updateStudent(subjectArray);
+            student.updateStudent(true);
         }else{
             ui.printMessage("Already enrolled in this course", "error")
         }
     }
 
-    Student.prototype.updateStudent = function(){
+    Student.prototype.updateStudent = function(deleteMessage){
         const { name, lastName, age, group, average} = studentData
 
 
@@ -124,13 +124,16 @@ import { UI, Student} from "./prototypes.js";
         const objectStore = transaction.objectStore('students');
 
         objectStore.put(updatedStudent);
-
+        if(deleteMessage){
+            ui.printMessage('Subject added successfully', 'success');
+            
+        }
         transaction.oncomplete = function(){
-            ui.printMessage('The student has been updated correctly', 'success');
             setTimeout(() => {
                 location.reload();
             }, 2000);
         }
+        
 
         transaction.onerror = () => ui.printMessage('Something went wrong', 'error')
     }
@@ -157,7 +160,7 @@ import { UI, Student} from "./prototypes.js";
             }).then((result) => {
                 if (result.isConfirmed) {
                     subjectArray = studentData.subjects.filter(sub => sub !== subject);
-                    student.updateStudent();
+                    student.updateStudent(false);
 
                     Swal.fire({
                     title: "Deleted!",

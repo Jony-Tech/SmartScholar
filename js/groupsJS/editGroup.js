@@ -49,7 +49,7 @@ import { GROUP, UI } from "../prototypes.js";
         objectStore.put(group);
 
         transaction.oncomplete = function(){
-            ui.printMessage('The student has been updated correctly', 'success');
+            ui.printMessage('This group has been updated correctly', 'success');
             setTimeout(() => {
                 window.location.href = 'groups.html';
             }, 2000);
